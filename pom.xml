@@ -19,6 +19,16 @@
             <artifactId>ws-commons-util</artifactId>
             <scope>compile</scope>
             <version>1.0.2</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>xml-apis</artifactId>
+                    <groupId>xml-apis</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>junit</artifactId>
+                    <groupId>junit</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.xmlrpc</groupId>
@@ -36,7 +46,6 @@
 
     <build>
         <plugins>
-            <!-- Consume by eclipse to remove warning message in IDE's project explorer -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
