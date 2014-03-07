@@ -118,6 +118,12 @@ public class OpenERPCommand {
 		return (Object []) session.executeCommand(objectName, "import_data", new Object[] {fieldList, rows, "init", "", false, session.getContext()});
 	}
 	
+	@SuppressWarnings("unchecked")
+  public HashMap<String, Object> Load(String objectName, String[] fieldList, Object [][] rows) throws XmlRpcException {
+	  Object o = session.executeCommand(objectName, "load", new Object[] {fieldList, rows});
+    return (HashMap<String, Object>) o;
+  }
+  
 	/**
 	 * Returns the name_get result of an object in the OpenERP server.
 	 * @param objectName Object name to invoke the name_get on
@@ -163,7 +169,20 @@ public class OpenERPCommand {
 	 */
 	public Object[] callObjectFunction(String objectName, String functionName, Object[] parameters) throws XmlRpcException {
 		return (Object[]) session.executeCommand(objectName, functionName, parameters);
-	} 
+	}
+	
+	/**
+   * Executes a workflow by sending a signal to the workflow engine for a specific object.
+   * All parameters are prepended by: "databaseName,userID,password"
+   * @param objectName Object or model name to send the signal for
+   * @param signal Signal name to send, for example order_confirm
+   * @param objectID Specific object ID to send the signal for
+   * @return 
+   * @throws XmlRpcException
+   */
+  public void executeWorkflow(final String objectName, final String signal, final int objectID) throws XmlRpcException {
+    session.executeWorkflow(objectName, signal, objectID);   
+  }
 	
 	/***
 	 * Left here for later use if required
